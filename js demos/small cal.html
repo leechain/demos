@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<meta charset="UTF-8">
+<title>简易加法计算器</title>
+</head>
+
+<body>
+
+<script>
+function sum(){
+var n1=document.getElementById("num1").valueAsNumber;
+var n2=document.getElementById("num2").valueAsNumber;
+document.getElementById("result").valueAsNumber=n1+n2;
+}
+</script>
+
+<form>
+<input type="number" id="num1">
++
+<input type="number" id="num2">
+=
+<input type="number" id="result" readonly>
+<input type="button" value="计算" onclick="sum()">
+</form>
+</body>
+</html>
