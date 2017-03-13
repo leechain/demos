@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+	<head lang="en">
+		<meta charset="UTF-8">
+		<title>九九乘法表</title>
+		<style>
+		table,tr,td{
+				border:1px double #0000ff;
+				width:600px;
+			} 
+		</style>
+	</head>
+
+	<body>
+	<!-- 在页面中显示一个99乘法表 -->
+		<script type="text/javascript">
+			document.write("<table>");
+			for(var x=1;x<=9;x++){
+				document.write("<tr>");
+				for(var y=1;y<=x;y++){
+					document.write("<td>"+y+"*"+x+"="+y*x+"</td>");
+				}
+				document.write("</tr>");
+			}
+			document.write("</table>");
+		</script>
+	</body>
+</html>
