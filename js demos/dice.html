@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+	<head lang="en">
+		<meta charset="UTF-8"/>
+		<title>Die Rolling</title>
+		<style>div#die {font-size:800%}</style>
+	</head>
+
+	<body>
+		<div>
+		<input id="roller" type="button" value="Poll"/>
+		</div>
+		<div id="die"></div>
+		<script>
+			document.getElementById("roller").onclick=function(){
+				document.getElementById("die").innerHTML=
+					"&#x268"+Math.floor(Math.random()*6)+";";
+			}
+		</script>
+	</body>
+</html>
