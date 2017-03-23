@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>邮件列表</title>
+		<style type="text/css">
+			table{
+					border:#249bdb 1px solid;
+					width:500px;
+					border-collapse:collapse;
+					}
+						
+			table td{
+					border:#249bdb 1px solid;
+					padding:5px;
+				}
+						
+			table th{
+					border:#249bdb 1px solid;
+					padding:5px;
+					background-color:rgb(200,200,200);
+				}
+				
+			.one{
+					background-color:#9bf7d5;
+					}
+
+			.two{
+					background-color:#f3e99a;
+					}
+
+			.over{
+				background-color:#ef7125;
+			}
+		</style>
+		
+		<script type="text/javascript">
+			//行颜色间隔显示功能
+			var name;
+			function trColor(){
+				//1、获取表格对象
+				var oTabNode=document.getElementById("mailtable");
+				
+				//2、获取行对象
+				var collTrNodes=oTabNode.rows;
+				
+				//3、对所有需要设置背景的对象进行遍历
+				for(var x=0;x<collTrNodes.length-1;x++){
+				
+					if(x%2==1){
+						collTrNodes[x].className="one";
+					}else{
+						collTrNodes[x].className="two";
+					}
+					
+					collTrNodes[x].onmouseover=function(){
+						name=this.className;
+						this.className="over";
+					}
+					
+					collTrNodes[x].onmouseout=function(){
+						this.className=name;
+					}
+				}
+			}
+			
+			onload=function(){
+				trColor();
+			}
+			
+			//复选框的全选动作
+			function checkAll(node){
+				
+				//获取所有的mail复选框
+				var collMailNodes=document.getElementsByName("mail");
+				
+				for(var x=0;x<collMailNodes.length;x++){
+					collMailNodes[x].checked=node.checked;
+				}				
+			}
+			
+			//定义操作复选框按钮的方法
+			function checkAllByBut(num){
+			
+				var collMailNodes=document.getElementsByName("mail");
+				
+				for(var x=0;x<collMailNodes.length;x++){
+				
+					if(num>1){
+						collMailNodes[x].checked=!collMailNodes[x].checked;
+					}else{
+						collMailNodes[x].checked=num;
+					}
+				}
+			
+			}
+			
+			//删除所选邮件
+			function deleteMail(){
+			
+				if(!confirm("你真的要删除所选的邮件吗？")){
+				
+					return;
+				}
+			
+					//获取所有的mail节点
+					var collMailNodes=document.getElementsByName("mail");
+					
+					for(var x=0;x<collMailNodes.length;x++){
+					
+						if(collMailNodes[x].checked){
+						
+							var oTrNode=collMailNodes[x].parentNode.parentNode;
+							
+							oTrNode.parentNode.removeChild(oTrNode);
+							
+							x--;
+						}						
+					}
+					trColor();	
+			}
+			
+			
+		</script>	
+	</head>
+	
+	<body>
+		<table id="mailtable">
+			<tr>
+				<th><input type="checkbox" name="all" onclick="checkAll(this)"/>全选</th>
+				<th>发件人</th>
+				<th>邮件名称</th>
+				<th>邮件附属消息</th>
+			</tr>
+			<tr>
+				<td><input type="checkbox" name="mail" /></td>
+				<td>张三1</td>
+				<td>我是邮件1</td>
+				<td>我是附属信息1</td>
+			</tr>
+			<tr>
+				<td><input type="checkbox" name="mail" /></td>
+				<td>张三2</td>
+				<td>我是邮件2</td>
+				<td>我是附属信息2</td>
+			</tr>
+			<tr>
+				<td><input type="checkbox" name="mail" /></td>
+				<td>张三3</td>
+				<td>我是邮件3</td>
+				<td>我是附属信息3</td>
+			</tr>
+			<tr>
+				<td><input type="checkbox" name="mail" /></td>
+				<td>张三4</td>
+				<td>我是邮件4</td>
+				<td>我是附属信息4</td>
+			</tr>
+			<tr>
+				<td><input type="checkbox" name="mail" /></td>
+				<td>张三5</td>
+				<td>我是邮件5</td>
+				<td>我是附属信息5</td>
+			</tr>
+			<tr>
+				<td><input type="checkbox" name="mail" /></td>
+				<td>张三6</td>
+				<td>我是邮件6</td>
+				<td>我是附属信息6</td>
+			</tr>
+			<tr>
+				<td><input type="checkbox" name="mail" /></td>
+				<td>张三7</td>
+				<td>我是邮件7</td>
+				<td>我是附属信息7</td>
+			</tr>
+			<tr>
+				<td><input type="checkbox" name="mail" /></td>
+				<td>张三8</td>
+				<td>我是邮件8</td>
+				<td>我是附属信息8</td>
+			</tr>
+			<tr>
+				<td><input type="checkbox" name="mail" /></td>
+				<td>张三9</td>
+				<td>我是邮件9</td>
+				<td>我是附属信息9</td>
+			</tr>
+			<tr>
+				<td><input type="checkbox" name="mail" /></td>
+				<td>张三10</td>
+				<td>我是邮件10</td>
+				<td>我是附属信息10</td>
+			</tr>
+			<tr>
+				<td><input type="checkbox" name="mail" /></td>
+				<td>张三11</td>
+				<td>我是邮件11</td>
+				<td>我是附属信息11</td>
+			</tr>
+			<tr>
+				<td><input type="checkbox" name="mail" /></td>
+				<td>张三12</td>
+				<td>我是邮件12</td>
+				<td>我是附属信息12</td>
+			</tr>
+			<tr>
+				<td><input type="checkbox" name="mail" /></td>
+				<td>张三13</td>
+				<td>我是邮件13</td>
+				<td>我是附属信息13</td>
+			</tr>
+			<tr>
+				<td><input type="checkbox" name="mail" /></td>
+				<td>张三14</td>
+				<td>我是邮件14</td>
+				<td>我是附属信息14</td>
+			</tr>
+			<tr>
+				<td><input type="checkbox" name="mail" /></td>
+				<td>张三15</td>
+				<td>我是邮件15</td>
+				<td>我是附属信息15</td>
+			</tr>
+			<tr>
+				<td><input type="checkbox" name="mail" /></td>
+				<td>张三16</td>
+				<td>我是邮件16</td>
+				<td>我是附属信息16</td>
+			</tr>
+			<tr>
+				<th><input type="checkbox" name="all" onclick="checkAll(this)" />全选</th>
+				<th colspan="3">
+				<input type="button" value="全选" onclick="checkAllByBut(1)"/>
+				<input type="button" value="取消全选" onclick="checkAllByBut(0)" />
+				<input type="button" value="反选" onclick="checkAllByBut(2)" />
+				<input type="button" value="删除所选附件" onclick="deleteMail()" />
+				</th>
+		
+			</tr>
+		</table>	
+	</body>
+</html>
