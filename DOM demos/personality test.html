@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>性格测试</title>
+		<style type="text/css">
+			#content{
+				margin:20px;
+			}
+			#no1ul{
+				list-style:none;
+				padding:0px;
+			}
+			#resA,#resB,#resC,#resD{
+				width:500px;
+			}
+			.close{
+				display:none;
+			}
+			.open{
+				diaplay:block;
+			}
+		</style>
+		
+		<script type="text/javascript">
+			
+			function showResult(){
+				/*
+				 *1、判断是否有答案被选中
+				 *获取所有no1的radio并遍历判断checked状态
+				 */
+				var oNo1Nodes=document.getElementsByName("no1");
+				var flag=false;
+				var val;
+				for(var x=0;x<oNo1Nodes.length;x++){
+					if(oNo1Nodes[x].checked){
+						flag=true;
+						val=oNo1Nodes[x].value;
+						console.log(val);
+						break;
+					}
+				}
+				if(!flag){
+					document.getElementById("errinfo").innerHTML="没有答案被选中！".fontcolor("red");
+					return;
+				}
+				
+				if(val==1){
+				
+					document.getElementById("resA").className="open";
+					document.getElementById("resB").className="close";
+					document.getElementById("resC").className="close";
+					document.getElementById("resD").className="close";
+				}else if(val==2){
+					document.getElementById("resA").className="close";
+					document.getElementById("resB").className="open";
+					document.getElementById("resC").className="close";
+					document.getElementById("resD").className="close";
+				}else if(val==3){
+					document.getElementById("resA").className="close";
+					document.getElementById("resB").className="close";
+					document.getElementById("resC").className="open";
+					document.getElementById("resD").className="close";
+				}else if(val==4){
+					document.getElementById("resA").className="close";
+					document.getElementById("resB").className="close";
+					document.getElementById("resC").className="close";
+					document.getElementById("resD").className="open";
+				}
+				
+			}
+		</script>
+	</head>
+	
+	<body>
+		<!-- 性格测试 -->
+		<div id="content">
+			<h2>欢迎您参与性格测试：</h2>
+			<div>
+				<span>问题：每天下班回家一进门，你会怎样脱掉鞋子？</span>
+				<ul id="no1ul">
+					<li><input type="radio" name="no1" value="1"/>A、很随意地脱下鞋子，不在乎如何摆放。</li>
+					<li><input type="radio" name="no1" value="2"/>B、脱下鞋后，把鞋尖朝向门外的方向整齐排好。</li>
+					<li><input type="radio" name="no1" value="3"/>C、脱下鞋后，把鞋尖朝屋内的方向整齐摆好。</li>
+					<li><input type="radio" name="no1" value="4"/>D、不自己拖鞋，而是由同住的人帮你脱下鞋子。</li>
+				</ul>
+			</div>
+			
+			<input type="button" value="查看测试结果" onclick="showResult()"/>
+			
+			<span id="errinfo"></span>
+			
+			<div id="resA" class="close">A:这样的人，比较喜欢自由，认为生活舒适即可，不在意细节，完全不考虑社会体制和规则的类型，以追求自我欲望为中心。较冲动，喜欢自由奔放的生活方式。比较自我的人，这种人是为了追求欲望而行动的人，仍然保持幼儿时期的性格。如果往好的方向发展，当然很好；但是，如果往坏的方向发展，结果会很令人惊叹。</div>
+			
+			<div id="resB" class="close">B:这样的人很能吃苦，用自己的辛勤来享受生活。凡事都要准备的万全，是追求完美的人。容易在社会上树敌很多，对于同事也毫不放松。他们会压抑情感，喜怒不形于色，遵守社会规范而行动。但是，这种人的心理面防卫防备很严，即使认为是为了社会公益而作的事情，也会引起很多的误解。你的道德心和伦理感相当强烈，建议最好不要给自己过多的负担以免吃不消。</div>
+			
+			<div id="resC" class="close">C:这样的人有自己的思考方式，有自己的做事风格，会适当地考虑方式方法，是办事周到的人。这样的人骄傲，但是又适度，所以会给人以成熟自信的感觉。</div>
+			
+			<div id="resD" class="close">D:这样的人，不要多说，一定是比较任性的人，与其说是任性，不如说是被完全惯坏了。因为周围的人都宠她，她要做的事情，都会由别人帮她做的很好，不是说她自己没有能力，是因为她的依赖性很强，所以这样的人必须注意与周围环境的协调，否则终有一天会吃大亏。</div>
+		</div>
+	</body>
+</html>
