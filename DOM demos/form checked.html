@@ -68,7 +68,7 @@
 			//通过普通按钮来提交数据
 			function checkForm(){
 				var oFormNode=document.getElementById("formid");
-				if(flag==true){
+				if(flag){
 					oFormNode.submit();
 				}else{
 					return false;
@@ -77,7 +77,7 @@
 			
 		</script>
 		
-		<form id="formid" onsubmit="formSubmit()">
+		<form id="formid" onsubmit="return formSubmit()">
 			用户名称：<input type="text" name="user" onfocus="setStyle(this.id)" onblur="checkName()" id="uid"/>
 			<span id="spanid"></span><br/><br/>
 			输入密码：<input type="password" name="password" onfocus="setStyle(this.id)" onblur="checkPassword()" id="pid">
