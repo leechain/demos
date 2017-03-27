@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>表单校验-简化版本</title>
+	</head>
+	
+	<body>
+		<!-- 表单校验-简化版本 -->
+		
+		<script type="text/javascript">
+		
+			var flag;
+			function check(name,reg,spanId,okinfo,errinfo){
+				
+				var val=document.getElementsByName(name)[0].value;
+				var oSpanNode=document.getElementById(spanId);
+				
+				if(reg.test(val)){
+					oSpanNode.innerHTML=okinfo.fontcolor("green");
+					flag=true;
+				}else{
+					oSpanNode.innerHTML=errinfo.fontcolor("red");
+					flag=false;
+				}
+				return flag;
+			}
+			
+			function checkName(){
+				var reg=/^[a-z]{4}$/i;//用户名是四个不区分大小写的字母
+				check("user",reg,"userid","用户名正确","用户名错误");
+				return flag;
+			}
+			
+			function checkPassword(){
+				var reg=/^[1-9]{4}$/;//密码是四个数字
+				check("password",reg,"passwordid","密码正确","密码错误");
+				return flag;
+			}
+			
+			function checkRepassword(){
+				
+				var pass=document.getElementsByName("password")[0].value;
+				var repass=document.getElementsByName("repassword")[0].value;
+				
+				//只要保证确认密码与密码输入一致即可
+				if(pass==repass){
+					flag=true;
+					document.getElementById("repasswordid").innerHTML="密码一致".fontcolor("green");
+				}else{
+					flag=false;
+					document.getElementById("repasswordid").innerHTML="密码不一致".fontcolor("red");
+				}
+				return flag;
+			}
+			
+			function checkEmail(){
+				var reg=/^[a-zA-Z0-9_-]+@([a-zA-Z0-9_-])+(.[a-zA-Z0-9_-])+/;//邮箱验证的正则表达式
+				check("email",reg,"emailid","邮箱格式正确","邮箱格式错误");
+				return flag;
+			}
+			
+			//定义提交按钮功能
+			function formSubmit(){
+				alert(checkName()+"-"+checkPassword()+"-"+checkRepassword()+"-"+checkEmail());
+				if(checkName()&&checkPassword()&&checkRepassword()&&checkEmail()){
+					return true;
+				}else{
+					return false;
+				}
+			}
+			
+			//通过普通按钮来提交数据
+			function checkForm(){
+				
+				var oFormNode=document.getElementById("formid");
+				if(checkName()&&checkPassword()&&checkRepassword()&&checkEmail()){
+					oFormNode.submit();
+				}else{
+					return false;
+				}
+			}
+			
+		</script>
+		
+		<form id="formid" onsubmit="return formSubmit()">
+		
+			用户名称：<input type="text" name="user" onblur="checkName()"/>
+			<span id="userid"></span><br/>
+			输入密码：<input type="password" name="password" onblur="checkPassword()"/>
+			<span id="passwordid"></span><br/>
+			确认密码：<input type="password" name="repassword" onblur="checkRepassword()"/>
+			<span id="repasswordid"></span><br/>
+			电子邮箱：<input type="text" name="email" onblur="checkEmail()"/>
+			<span id="emailid"></span><br/>
+			
+			<input type="submit" value="提交数据">
+		</form>
+		<hr/>
+		
+		<input type="button" value="我的提交" onclick="checkForm()">
+		
+	</body>
+</html>
