@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>添加删除附件</title>
+		<style type="text/css">
+			a:link,a:visited{
+				text-decoration:none;
+				color:blue;
+			}
+			a:hover,a:active{
+				color:red;
+			}
+		</style>
+	</head>
+	
+	<body>
+	
+		<script type="text/javascript">
+			function addFile(){
+				var oTabNode=document.getElementById("tabid");
+				
+				var oTrNode=oTabNode.insertRow();
+				var oTdNode_file=oTrNode.insertCell();
+				var oTdNode_del=oTrNode.insertCell();
+				
+				oTdNode_file.innerHTML="<input type='file'/>";
+				oTdNode_del.innerHTML="<a href='javascript:void(0)' onclick='deleteFile(this)'>删除附件</a>";
+			}
+			
+			function deleteFile(node){
+				var oTrNode=node.parentNode.parentNode;
+				oTrNode.parentNode.removeChild(oTrNode);
+			}
+		</script>
+	
+		<table id="tabid">
+			<tr>
+				<td><a href="javascript:void(0)" onclick="addFile()">添加附件</a></td>
+			</tr>
+			
+			<!-- <tr>
+				<td><input type="file"/></td>
+				<td><a href="javascript:void(0)">删除附件</a></td>
+			</tr> -->
+			
+		</table>
+	</body>
+</html>
