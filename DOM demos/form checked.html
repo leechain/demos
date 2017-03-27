@@ -11,9 +11,13 @@
 		<script type="text/javascript">
 			function checkName(){
 				var oUserNode=document.getElementsByName("user")[0];
+				var name=oUserNode.value;
+				
+				//var reg=new RegExp("^[a-z]{4}$","i");//用户名必须是四个不区分大小写的字母			
+				var reg=/^[a-z]{4}$/;//效果同上
 				
 				//alert(oUserNode.value);
-				if(oUserNode.value=="abc"){
+				if(reg.test(name)){
 					document.getElementById("spanid").innerHTML="用户名正确".fontcolor("green");
 				}else{
 					document.getElementById("spanid").innerHTML="用户名错误".fontcolor("red");
@@ -22,9 +26,13 @@
 			
 			function checkPassword(){
 				var oPasswordNode=document.getElementsByName("password")[0];
+				var pwd=oPasswordNode.value;
+				
+				//var reg=new RegExp("^[1-9]{4}$");//密码必须是四个数字
+				var reg=/^[1-9]{4}$/;//效果同上
 				
 				//alert(oPasswordNode.value);
-				if(oPasswordNode.value=="123456"){
+				if(reg.test(pwd)){
 					document.getElementById("passwordid").innerHTML="密码正确".fontcolor("green");
 				}else{
 					document.getElementById("passwordid").innerHTML="密码错误".fontcolor("red");
