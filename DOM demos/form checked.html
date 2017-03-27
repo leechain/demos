@@ -26,6 +26,7 @@
 					document.getElementById("spanid").innerHTML="用户名错误".fontcolor("red");
 					flag=false;
 				}
+				return flag;
 			}
 			
 			function checkPassword(){
@@ -43,6 +44,7 @@
 					document.getElementById("passwordid").innerHTML="密码错误".fontcolor("red");
 					flag=false;
 				}
+				return flag;
 			}
 			
 			function setStyle(x){
@@ -58,7 +60,8 @@
 			
 			//定义提交按钮功能
 			function formSubmit(){
-				if(flag){
+				alert(checkName()+"-"+checkPassword());
+				if(checkName()&&checkPassword()){
 					return true;
 				}else{
 					return false;
@@ -68,7 +71,7 @@
 			//通过普通按钮来提交数据
 			function checkForm(){
 				var oFormNode=document.getElementById("formid");
-				if(flag){
+				if(checkName()&&checkPassword()){
 					oFormNode.submit();
 				}else{
 					return false;
