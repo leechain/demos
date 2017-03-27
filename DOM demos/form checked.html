@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>表单校验-涉及的事件和信息提示方式</title>
+	</head>
+	
+	<body>
+	
+		<!-- 表单校验 -->
+		<script type="text/javascript">
+			function checkName(){
+				var oUserNode=document.getElementsByName("user")[0];
+				
+				//alert(oUserNode.value);
+				if(oUserNode.value=="abc"){
+					document.getElementById("spanid").innerHTML="用户名正确".fontcolor("green");
+				}else{
+					document.getElementById("spanid").innerHTML="用户名错误".fontcolor("red");
+				}
+			}
+			
+			function checkPassword(){
+				var oPasswordNode=document.getElementsByName("password")[0];
+				
+				//alert(oPasswordNode.value);
+				if(oPasswordNode.value=="123456"){
+					document.getElementById("passwordid").innerHTML="密码正确".fontcolor("green");
+				}else{
+					document.getElementById("passwordid").innerHTML="密码错误".fontcolor("red");
+				}
+			}
+			
+			function setStyle(x){
+				console.log(x)
+				document.getElementById(x).style.background="yellow";
+			}
+			/*
+			function setStyle1(x){
+				console.log(x)
+				document.getElementById(x).style.background="yellow";
+			}
+			*/
+		</script>
+		用户名称：<input type="text" name="user" onfocus="setStyle(this.id)" onblur="checkName()" id="uid"/><span id="spanid"></span><br/><br/>
+		输入密码：<input type="password" name="password" onfocus="setStyle(this.id)" onblur="checkPassword()" id="pid"><span id="passwordid"></span>
+	</body>
+</html>
