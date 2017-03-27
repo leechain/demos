@@ -9,18 +9,22 @@
 	
 		<!-- 表单校验 -->
 		<script type="text/javascript">
+			var flag;
+			
 			function checkName(){
 				var oUserNode=document.getElementsByName("user")[0];
 				var name=oUserNode.value;
 				
-				//var reg=new RegExp("^[a-z]{4}$","i");//用户名必须是四个不区分大小写的字母			
-				var reg=/^[a-z]{4}$/;//效果同上
+				//var reg=new RegExp("^[a-z]{4}$","i");//用户名必须是四个不区分大小写的字母,必须是四个数字,"\"需要转义			
+				var reg=/^[a-z]{4}$/;//效果同上,"\"不需要转义直接书写即可
 				
 				//alert(oUserNode.value);
 				if(reg.test(name)){
 					document.getElementById("spanid").innerHTML="用户名正确".fontcolor("green");
+					flag=true;
 				}else{
 					document.getElementById("spanid").innerHTML="用户名错误".fontcolor("red");
+					flag=false;
 				}
 			}
 			
@@ -34,8 +38,10 @@
 				//alert(oPasswordNode.value);
 				if(reg.test(pwd)){
 					document.getElementById("passwordid").innerHTML="密码正确".fontcolor("green");
+					flag=true;
 				}else{
 					document.getElementById("passwordid").innerHTML="密码错误".fontcolor("red");
+					flag=false;
 				}
 			}
 			
@@ -49,8 +55,36 @@
 				document.getElementById(x).style.background="yellow";
 			}
 			*/
+			
+			//定义提交按钮功能
+			function formSubmit(){
+				if(flag){
+					return true;
+				}else{
+					return false;
+				}
+			}
+			
+			//通过普通按钮来提交数据
+			function checkForm(){
+				var oFormNode=document.getElementById("formid");
+				if(flag==true){
+					oFormNode.submit();
+				}else{
+					return false;
+				}
+			}
+			
 		</script>
-		用户名称：<input type="text" name="user" onfocus="setStyle(this.id)" onblur="checkName()" id="uid"/><span id="spanid"></span><br/><br/>
-		输入密码：<input type="password" name="password" onfocus="setStyle(this.id)" onblur="checkPassword()" id="pid"><span id="passwordid"></span>
+		
+		<form id="formid" onsubmit="formSubmit()">
+			用户名称：<input type="text" name="user" onfocus="setStyle(this.id)" onblur="checkName()" id="uid"/>
+			<span id="spanid"></span><br/><br/>
+			输入密码：<input type="password" name="password" onfocus="setStyle(this.id)" onblur="checkPassword()" id="pid">
+			<span id="passwordid"></span><br/>
+			<input type="submit" value="提交数据">
+		</form>
+		<hr/>
+		<input type="button" value="我的提交" onclick="checkForm()">
 	</body>
 </html>
