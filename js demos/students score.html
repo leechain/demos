@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>学生成绩统计表</title>
+		
+		<style type="text/css">
+			*{
+				padding:0px;
+				margn:0px;
+			}
+			
+			h4{
+				margin:100px auto 10px auto;
+				text-align: center;
+			}
+
+			table#stuRecordTable{
+				border:#249bdb 1px solid;
+				border-collapse:collapse;
+				width:600px;
+				margin:10px auto;
+				text-align: center;
+			}
+			
+			table td{
+					border:#249bdb 1px solid;
+					padding:5px;
+				}
+			
+			table th{
+					border:#249bdb 1px solid;
+					padding:5px;
+					background-color:#EDEDED;
+				}
+			
+			table#stuRecordTable tr{
+				height:30px;
+			}
+			
+			.one{
+					background-color:#9bf7d5;
+					}
+
+			.two{
+					background-color:#f3e99a;
+					}
+
+			.over{
+				background-color:#ef7125;
+			}
+			
+		</style>
+		
+		<script type="text/javascript">
+		
+			onload = function(){
+			
+				//当页面加载完成之后，执行函数
+				doOperator();       
+				trColor();
+			}
+			
+			//行颜色间隔显示功能
+			var name;
+			function trColor(){
+				//1、获取表格对象
+				var oTabNode=document.getElementById("stuRecordTable");
+				
+				//2、获取行对象
+				var collTrNodes=oTabNode.rows;
+				
+				//3、对所有需要设置背景的对象进行遍历
+				for(var x=1;x<collTrNodes.length-1;x++){
+				
+					if(x%2==1){
+						collTrNodes[x].className="one";
+					}else{
+						collTrNodes[x].className="two";
+					}
+					
+					collTrNodes[x].onmouseover=function(){
+						name=this.className;
+						this.className="over";
+					}
+					
+					collTrNodes[x].onmouseout=function(){
+						this.className=name;
+					}
+				}
+			}
+		
+			function $(eleStr){
+			
+				//定义各个字符所代表的含义
+				//substr() 方法可在字符串中抽取从 start 下标开始的指定数目的字符。
+				switch(eleStr.substr(0,1)){
+				
+				case "#":
+					return document.getElementById(eleStr.substr(1));
+					break;
+					
+				case ".":
+					return document.getElementsByClassName(eleStr.substr(1));
+					break;
+					
+				case "_":
+					return document.getElementsByName(eleStr.substr(1));
+					break;
+					
+				default:
+					return document.getElementsByTagName(eleStr);
+				break;
+				
+				}
+			}
+			
+			
+			//删除和修改数据的功能
+			function doOperator(){
+			
+				//获取所有的删除按钮
+				var dels =$(".del");
+				
+				//获取所有的修改姓名按钮
+				var updatenames =$(".updatename");
+			
+				//获取所有的修改成绩按钮
+				var updates =$(".update");
+				
+
+				//遍历所有按钮，为每一个各自按钮添加点击删除事件
+				for (var i = 0; i < dels.length; i++) {
+				
+					//添加删除按钮的点击事件
+					dels[i].onclick = function(){
+						if(confirm("是否确定删除？")){  //提示是否删除
+						
+							var row = this.parentNode.parentNode; //取到tr对象
+							row.parentNode.removeChild(row);  //通过tr的父节点来移除tr对象
+							
+							//$("#stuRecordTable").deleteRow(this.parentNode.parentNode.rowIndex);//删除一行
+						}
+					}
+					
+					//添加修改姓名按钮的点击事件
+					updatenames[i].onclick = function(){
+					
+						//取到要操作的td对象，取到姓名单元格
+						var operatorCell = this.parentNode.parentNode.getElementsByTagName("td")[0]; 
+						
+						//1.修改按钮上有两个功能：修改，确定修改
+						if(this.value == "修改姓名"){
+							//点击修改按钮之后，按钮变成确认功能
+							this.value = "确定";
+							
+							//把文本内容变成文本框，做修改操作
+							operatorCell.innerHTML ="<input value='"+operatorCell.innerHTML+"'/>";
+						}else{
+							//把文本框变成文本内容
+							operatorCell.innerHTML =operatorCell.getElementsByTagName("input")[0].value;
+							
+							//点击确认按钮之后，按钮变成修改功能
+							this.value = "修改姓名";
+						}
+					}
+					
+					//添加修改成绩按钮的点击事件
+					updates[i].onclick = function(){
+					
+						//取到要操作的td对象，取到成绩单元格
+						var operatorCell = this.parentNode.parentNode.getElementsByTagName("td")[1]; 
+						
+						//1.修改按钮上有两个功能：修改，确定修改
+						if(this.value == "修改成绩"){
+							//点击修改按钮之后，按钮变成确认功能
+							this.value = "确定";
+							
+							//把文本内容变成文本框，做修改操作
+							operatorCell.innerHTML ="<input value='"+operatorCell.innerHTML+"'/>";
+						}else{
+							//把文本框变成文本内容
+							operatorCell.innerHTML =operatorCell.getElementsByTagName("input")[0].value;
+							
+							//点击确认按钮之后，按钮变成修改功能
+							this.value = "修改成绩";
+						}
+					}
+					
+				}
+			}
+			
+			
+			//添加数据的功能
+			function addRow(){
+				//获取到表格的所有行
+				var rs = $("#stuRecordTable").rows;
+				
+				//在表格的最后一行上面给表格添加一行新的随机数据(不包单元格)
+				var insertR = $("#stuRecordTable").insertRow(rs.length-1); 
+				
+				//新插入的数据与第一行数据一致
+				//insertR.innerHTML = rs[1].innerHTML;
+
+				<!-- //添加第一个单元格的内容 -->
+				var c1 = insertR.insertCell(0); 
+				c1.innerHTML = "某某" +Math.round(Math.random() * 101);
+				<!-- //添加第二个单元格的内容 -->
+				var c2 = insertR.insertCell(1);
+				c2.innerHTML = Math.round(Math.random() * 101);
+				<!-- //添加第三个单元格的内容 -->
+				var c3 = insertR.insertCell(2); 
+				c3.innerHTML ='<input type="button" value="删除" class="del"/> <input type="button" value="修改姓名" class="updatename"/> <input type="button" value="修改成绩" class="update"/>';
+				
+				//调用此函数使得新添加的行具有修改和删除的功能
+				doOperator();
+				//调用此函数使得新添加的行具有行颜色间隔显示的功能
+				trColor();
+				
+				//取到当前行的所有单元格
+				//var cs = rs[1].cells; 
+				//alert(cs[1].innerHTML);
+			}
+		</script>
+		
+	</head>
+
+	<body>
+		<h4>学生成绩统计表</h4>
+		<table id="stuRecordTable" border="1" cellpadding="0" cellspacing="0">
+			<tr>
+				<th>姓名</th> 
+				<th>成绩</th>
+				<th>编辑</th>
+			</tr>
+			
+			<tr>
+				<td>小明</td>
+				<td>90</td>
+				<td>
+					<input type="button" value="删除" class="del"/>
+					<input type="button" value="修改姓名" class="updatename"/>
+					<input type="button" value="修改成绩" class="update"/>
+				</td>
+			</tr>
+			
+			<tr>
+				<td>小红</td>
+				<td>80</td>
+				<td>
+					<input type="button" value="删除" class="del"/>
+					<input type="button" value="修改姓名" class="updatename"/>
+					<input type="button" value="修改成绩" class="update"/>
+				</td>
+			</tr>
+			
+			<tr>
+				<td>小张</td>
+				<td>70</td>
+				<td>
+					<input type="button" value="删除" class="del"/>
+					<input type="button" value="修改姓名" class="updatename"/>
+					<input type="button" value="修改成绩" class="update"/>
+				</td>
+			</tr>
+			
+			<tr>
+				<td>小华</td>
+				<td>85</td>
+				<td>
+					<input type="button" value="删除" class="del"/>
+					<input type="button" value="修改姓名" class="updatename"/>
+					<input type="button" value="修改成绩" class="update"/>
+				</td>
+			</tr>
+			
+			<tr>
+				<th colspan="3">
+					<input type="button" value="添加" onclick="addRow()"/>
+				</th>
+			</tr>
+		</table>
+	</body>
+	
+</html>
