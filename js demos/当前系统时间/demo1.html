@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+		<title>当前系统时间</title>
+		<link rel="stylesheet" href="style.css"  />
+
+		<script language="javascript" type="text/javascript">
+		
+			window.onload = function(){
+				showTime();
+			}
+			
+			function checkTime(i){
+				if (i<10){
+					i="0" + i
+				}else{
+					return i		
+				}
+			}
+			
+			function showTime(){
+				var now=new Date();//获取当前时间
+				var year=now.getFullYear();//年
+				var month=now.getMonth()+1;//月
+				var day=now.getDate();//日
+				var h=now.getHours();//小时
+				var m=now.getMinutes();//分钟
+				var s=now.getSeconds();//秒
+				
+				m=checkTime(m);
+				s=checkTime(s);
+
+				//由于now.getDay()返回的星期是0-6，所以将数字转换为星期
+				var weekday=new Array(7)
+				weekday[0]="星期日"
+				weekday[1]="星期一"
+				weekday[2]="星期二"
+				weekday[3]="星期三"
+				weekday[4]="星期四"
+				weekday[5]="星期五"
+				weekday[6]="星期六"
+
+				document.getElementById("show").innerHTML=""+year+"年"+month+"月"+day+"日 "+weekday[now.getDay()]+h+":"+m+":"+s;
+				//定时器每隔500毫秒刷新一次页面
+				t=setTimeout('showTime()',500)
+			}
+			
+		</script>
+	</head>
+	
+	<body>
+	<div class="content1">
+	  <div id="show">显示时间的位置</div>
+	</div>
+	</body>
+</html>
