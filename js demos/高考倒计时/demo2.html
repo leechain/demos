@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<title>高考倒计时</title>
+		<link rel="stylesheet" href="style.css"  />
+		
+		<script language="javascript" type="text/javascript">     
+		  window.onload = function(){
+			//自定义结束时间
+		　　var timedate= new Date("6,7,2017");  
+			//获取当前时间
+		　　var now = new Date();    
+			//得出的差值为毫秒数
+		　　var date = timedate.getTime() - now.getTime();
+			//将毫秒数向上取整得出天数
+		　　var time = Math.ceil(date/(1000 * 60 * 60 * 24));  //1000 * 60 * 60 * 24一天的秒数
+			if(time > 0 ){
+			  document.getElementById('timeShow').innerHTML = time;
+			}
+		}
+		</script>
+	</head>
+	
+	<body>
+	   <div class="content2">
+		  <div class="txtshow">距离2017年高考还有<span  id="timeShow"></span>天</div>
+	   </div>
+	</body>
+</html>
