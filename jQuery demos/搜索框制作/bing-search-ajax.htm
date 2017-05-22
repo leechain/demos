@@ -1,0 +1,210 @@
+<html>
+<head>
+	<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+	<meta content="text/html; charset=utf-8" http-equiv="content-type" />
+	<title>利用Ajax实现动态bing search</title>
+	<style type="text/css">
+	body{
+		background-color:#333;
+	}
+	
+	.bg-div{
+		position:relative;
+		background-image:url(river.jpg);
+		width:1228px;
+		height:690px;
+		margin:0 auto;
+	}
+	
+	.logo{
+		background-image:url(logo.png);
+		height:53px;
+		width:107px; 
+		float:left;
+		margin:-4px 18px 0 0;/*负值会向相反的方向移动*/
+	}
+	
+	.search-form{
+		float:left; 
+		background-color:#fff;
+		padding:5px;
+	}
+	
+	.search-text{
+		border:0;
+		height:25px;
+		line-height:25px;
+		float:left;
+		width:350px;
+		outline:none;/*去掉搜索框外面蓝色高亮边框*/
+	}
+	
+	.search-button{
+		border:0;
+		background-image:url(search-button.png);
+		width:29px;
+		height:29px;
+		float:left;
+	}
+	
+	.search-box{
+		/*相对于页面body的左上角定位*/
+		position:absolute;
+		top:200px;
+		left:300px; 
+	}
+	
+	.suggest{
+		width:388px; /*和搜索框一样宽*/
+		background-color:#fff;
+		position:absolute;
+		margin:0;
+		padding:0;
+		border-width:1px;
+		border-style:solid;
+		border-color:#999;
+	}
+	
+	.suggest ul{
+		list-style:none;
+		display:block;
+		margin:0;
+		padding:0
+	}
+	
+	.suggest ul li {
+		padding:3px;
+		line-height:25px;
+		font-size:14px;
+		color:#777;
+		cursor:pointer;
+	}
+	
+	.suggest ul li:hover{
+		background-color:#e5e5e5;
+		text-decoration:underline;
+	}
+	
+	.suggest strong{
+		color:#000;
+	}
+	
+	.clearfix:after{
+		display:block;
+		clear:both;
+		content:"";
+		visibility:hidden;
+		height:0px;
+	}
+	
+	.clearfix{
+		zoom:1
+	}
+	
+	.nav{
+		margin:0 auto; 
+		width:1228px;
+	}
+	
+	.nav ul{
+		list-style:none;
+		margin:0;
+		padding:0;
+	}
+	
+	.nav ul li{
+		float:left;
+		padding:10px;
+	}
+	
+	.nav ul li a{
+		color:#999; 
+		text-decoration:none;
+		font-size:12px; 
+		font-weight:bold;
+	}
+	
+	a:hover {
+		text-decoration:underline;
+	}
+	
+	</style>
+</head>
+
+<body>
+	<div class="nav">
+		<ul class="clearfix">
+			<li><a href="#">图片</a></li>
+			<li><a href="#">视频</a></li>
+			<li><a href="#">词典</a></li>
+			<li><a href="#">咨询</a></li>
+			<li><a href="#">地图</a></li>
+			<li><a href="#">影响力</a></li>
+			<li><a href="#">更多</a></li>
+		</ul>
+	</div>
+	
+	<!-- 搜索框 -->
+	 <div class="bg-div">
+		<div class="search-box">
+		<div class="logo"></div>
+		
+			<form class="search-form" action="https://cn.bing.com/search" target="_blank" id="search-form">
+				<input type="text" class="search-text" name="q" id="search_input" autocomplete="off"/>
+				<input type="submit" class="search-button" value=""/>
+			</form>
+			
+		</div>
+	 </div>
+	 
+	 <!-- 智能提示 -->
+	 <div class="suggest" id="search-suggest" style="display:none">
+		<ul id="search-result">
+			<li> 搜索内容1 </li>
+			<li> 搜索内容2 </li>
+		</ul>
+	</div>
+	
+	 <script src="http://code.jquery.com/jquery-1.10.2.min.js"></script>
+	 
+	 <script>
+		$('#search_input').bind('keyup',function(){
+		
+			$('#search-suggest').show().css({
+					//根据搜索框的位置来定位
+					top:$('#search-form').offset().top+$('#search-form').height()+10,
+					left:$('#search-form').offset().left,
+					position:'absolute'
+			    });	
+		
+			//利用Ajax技术实现页面的动态交互
+			//注意：Ajax发送请求的url地址与服务器地址必须是在同一域名下
+			var jqueryInput = $(this);
+			var searchText = jqueryInput.val();//input内用户输入的内容
+			$.get('http://api.bing.com/qsonhs.aspx?q='+searchText,function(d){
+				//注意：由于后台数据没有制作，所以无法动态获取
+				var d=d.AS.Results[0].Suggests;
+				var html='';
+				for(var i=0;i<d.length;i++){
+					html+='<li>'+d[i].Txt+'</li>';
+				}
+				$('#search-result').html(html);
+				
+			},'json');
+		});
+		
+		//用户点击其他地方，提示搜索框消失
+		$(document).bind('click',function(){
+			$('#search-suggest').hide();
+		});
+		
+		//事件代理实现点击提示搜索框内容进行页面跳转
+		$(document).delegate('li','click',function(){
+			var keyword=$(this).text();
+			location.href='http://cn.bing.com/search?q='+keyword;
+		})
+		
+	 </script>
+	 
+</body>
+</html>
