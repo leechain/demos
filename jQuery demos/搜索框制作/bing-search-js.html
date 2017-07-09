@@ -1,0 +1,216 @@
+<html>
+<head>
+	<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+	<meta content="text/html; charset=utf-8" http-equiv="content-type" />
+	<title>利用JS实现动态bing search</title>
+	<style type="text/css">
+	body{
+		background-color:#333;
+	}
+	
+	.bg-div{
+		position:relative;
+		background-image:url(river.jpg);
+		width:1228px;
+		height:690px;
+		margin:0 auto;
+	}
+	
+	.logo{
+		background-image:url(logo.png);
+		height:53px;
+		width:107px; 
+		float:left;
+		margin:-4px 18px 0 0;/*负值会向相反的方向移动*/
+	}
+	
+	.search-form{
+		float:left; 
+		background-color:#fff;
+		padding:5px;
+	}
+	
+	.search-text{
+		border:0;
+		height:25px;
+		line-height:25px;
+		float:left;
+		width:350px;
+		outline:none;/*去掉搜索框外面蓝色高亮边框*/
+	}
+	
+	.search-button{
+		border:0;
+		background-image:url(search-button.png);
+		width:29px;
+		height:29px;
+		float:left;
+	}
+	
+	.search-box{
+		/*相对于页面body的左上角定位*/
+		position:absolute;
+		top:200px;
+		left:300px; 
+	}
+	
+	.suggest{
+		width:388px; /*和搜索框一样宽*/
+		background-color:#fff;
+		position:absolute;
+		margin:0;
+		padding:0;
+		border-width:1px;
+		border-style:solid;
+		border-color:#999;
+	}
+	
+	.suggest ul{
+		list-style:none;
+		display:block;
+		margin:0;
+		padding:0
+	}
+	
+	.suggest ul li {
+		padding:3px;
+		line-height:25px;
+		font-size:14px;
+		color:#777;
+		cursor:pointer;
+	}
+	
+	.suggest ul li:hover{
+		background-color:#e5e5e5;
+		text-decoration:underline;
+	}
+	
+	.suggest strong{
+		color:#000;
+	}
+	
+	.clearfix:after{
+		display:block;
+		clear:both;
+		content:"";
+		visibility:hidden;
+		height:0px;
+	}
+	
+	.clearfix{
+		zoom:1
+	}
+	
+	.nav{
+		margin:0 auto; 
+		width:1228px;
+	}
+	
+	.nav ul{
+		list-style:none;
+		margin:0;
+		padding:0;
+	}
+	
+	.nav ul li{
+		float:left;
+		padding:10px;
+	}
+	
+	.nav ul li a{
+		color:#999; 
+		text-decoration:none;
+		font-size:12px; 
+		font-weight:bold;
+	}
+	
+	a:hover {
+		text-decoration:underline;
+	}
+	
+	</style>
+</head>
+
+<body>
+	<div class="nav">
+		<ul class="clearfix">
+			<li><a href="#">图片</a></li>
+			<li><a href="#">视频</a></li>
+			<li><a href="#">词典</a></li>
+			<li><a href="#">咨询</a></li>
+			<li><a href="#">地图</a></li>
+			<li><a href="#">影响力</a></li>
+			<li><a href="#">更多</a></li>
+		</ul>
+	</div>
+	
+	<!-- 搜索框 -->
+	 <div class="bg-div">
+		<div class="search-box">
+		<div class="logo"></div>
+		
+			<form class="search-form" action="https://cn.bing.com/search" target="_blank" id="search-form">
+				<input type="text" class="search-text" name="q" id="search_input" autocomplete="off"/>
+				<input type="submit" class="search-button" value=""/>
+			</form>
+			
+		</div>
+	 </div>
+	 
+	 <!-- 智能提示 -->
+	 <div class="suggest" id="search-suggest" style="display:none">
+		<ul id="search-result">
+			<li> 搜索内容1 </li>
+			<li> 搜索内容2 </li>
+		</ul>
+	</div>
+	 
+	<script type="text/javascript">
+	
+		var getDOM=function(id){
+			return document.getElementById(id);
+		}
+	
+		var addEvent=function(id,event,fn){
+			var el=getDOM(id)||document;//为了代码容错
+			if(el.addEventListener){//适用于非IE浏览器
+				el.addEventListener(event,fn,false);
+			}else if(el.attachEvent){//适用于IE浏览器
+				el.attachEvent('on'+event,fn);
+			}
+		}
+		
+		var getElementLeft=function(element){
+			var actualLeft=element.offsetLeft;
+			var current=element.offsetParent;
+			
+			while(current!=null){
+				actualLeft+=current.offsetLeft;//offsetLeft是获取距离父元素左边的距离
+				current=current.offsetParent;
+			}
+			return actualLeft;
+		}
+		
+		var getElementTop=function(element){
+			var actualTop=element.offsetTop;
+			var current=element.offsetParent;
+			
+			while(current!=null){
+				actualTop+=current.offsetTop;
+				current=current.offsetParent;
+			}
+			return actualTop;
+		}
+		
+		addEvent('search-input','keyup',function(){
+			getDOM('search-suggest').style.top=getElementTop(getDOM('search-form'))+38+'px';
+			getDOM('search-suggest').style.left=getElementLeft(getDOM('search-form'))+'px';
+			getDOM('search-suggest').style.position='absolute';
+			getDOM('search-suggest').style.display='block';
+			
+		});
+		
+	</script>
+	 
+</body>
+</html>
