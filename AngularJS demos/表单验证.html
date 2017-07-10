@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   <meta charset = "UTF-8">
+   <title>用AngularJS实现表单验证</title>
+   <link rel="stylesheet" type="text/css" href="bootstrap.min.css">
+   <style>
+       .red {
+           background: #a30;
+       }
+       .error{
+           color: #a10;
+       }
+       p.error {
+           display: none;
+       }
+       input.error {
+           border: 1px solid #a10;
+       }
+       .wrapper{
+           width: 200px;
+           margin: 30px auto;
+       }
+   </style>
+</head>
+<body ng-app="myApp" ng-controller="SignUpController">
+   <div class="wrapper">
+       <h2>注册</h2>
+	   
+       <form name="signUpForm" ng-submit="submitForm()">
+           <div class="form-group">
+               <label>用户名：</label>
+               <input type="text" name="username" ng-model="userdate.username" ng-minlength=4 ng-maxlength=32 required class="form-control"
+			   		  ng-class="{'error':signUpForm.username.$ianvalid&&signUpForm.username.$touched}"/>
+			   <div ng-if="signUpForm.username.$error.required && signUpForm.username.$touched" class="error">用户名不能为空</div>
+               <div ng-if="(signUpForm.username.$error.minlength||signUpForm.username.$error.maxlength) && signUpForm.username.$touched" class="error">请输入4-32位的用户名</div>
+           </div>
+		   
+           <div class="form-group">
+               <label>密码：</label>
+               <input type="password" name="password" ng-model="userdate.password" ng-minlength=6 ng-maxlength=12 required class="form-control"
+			   ng-class="{'error':signUpForm.password.$invalid&&signUpForm.password.$touched}"/>
+			   <div ng-if="signUpForm.password.$error.required && signUpForm.password.$touched" class="error">用户名不能为空</div>
+			   <div ng-if="(signUpForm.password.$error.minlength||signUpForm.password.$error.maxlength) && signUpForm.password.$touched">请输入6-12位的密码</div>
+           </div>
+		   
+           <div class="form-group">
+               <label>确认密码：</label>
+               <input type="password" name="password2" ng-model="userdate.password2" compare="userdate.password" required class="form-control">
+			   <div ng-if="signUpForm.password2.$error.compare && signUpForm.password2.$touched" class="error">两次密码不一致</div>
+           </div>
+		   
+           <button type="submit" class="btn btn-primary" ng-disabled="signUpForm.$invalid">提交</button>
+       </form>
+   </div>
+
+   <script src="angular-1.4.6.min.js"></script>
+   <script>
+		
+		angular.module('myApp',[]).controller('SignUpController',function($scope){
+		
+			$scope.userdate={};
+		
+			$scope.submitForm=function(){
+				console.log($scope.userdate);
+				if($scope.signUpForm.$valid){
+					alert("提交成功");
+				}else{
+					alert("提交失败，请检查您的信息");
+				}
+			}
+		})
+		
+		.directive("compare",function(){
+			var o={};
+			o.strict="AE";
+			o.scope={
+				orgText:"=compare"
+			}
+			o.require="ngModel";
+			o.link=function(sco,ele,att,con){
+				con.$validators.compare=function(v){
+					return v==sco.orgText;
+				}
+				
+				sco.$watch("orgText",function(){
+					con.$validate();
+				})
+			}
+			return o;
+		})
+		
+   </script>
+</body>
+</html>
