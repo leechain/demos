@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>最大公约数和最小公倍数</title>
+</head>
+
+<body>
+
+    <!-- <span onmousemove="max(1,2)">最大数</span> -->
+
+    <script type="text/javascript">
+        window.onload = function() {
+            document.write(gcd1(21, 7) + "<br/>");
+            document.write(gcd2(21, 24) + "<br/>");
+            document.write(gcd3(8, 32) + "<br/>");
+            document.write(lcm1(8, 32) + "<br/>");
+            document.write(lcm2(8, 7) + "<br/>");
+        }
+
+        //两数的最大数
+        function max(a, b) {
+            return a > b ? a : b;
+        }
+
+        //两数的最小数
+        function min(a, b) {
+            return a < b ? a : b;
+        }
+
+        // 最大公约数
+        // 法一： 暴力求解法
+        function gcd1(a, b) {
+            for (var i = min(a, b); i > -1; i--) {
+                if (a % i == 0 && b % i == 0) {
+                    return i;
+                }
+            }
+        }
+
+        function gcd2(a, b) {
+            var x = min(a, b);
+            if (x == 0) {
+                return x;
+            }
+            // console.log(x);
+            for (var i = x; i > 0; i--) {
+                if (a % i == 0 && b % i == 0) {
+                    return i;
+                }
+            }
+        }
+
+        //法二：辗转相除法
+        function gcd3(a, b) {
+            var xi = min(a, b);
+            var xa = max(a, b);
+            if (xi == 0) {
+                return xi;
+            }
+            var temp;
+            temp = xa % xi;
+            if (temp != 0) {
+                xa = xi;
+                xi = temp;
+                temp = xa % xi;
+            }
+            return xi;
+        }
+
+
+        //最小公倍数
+        //法一：暴力求解法
+        function lcm1(a, b) {
+            if (a == 0 || b == 0) {
+                alert("最小公倍数不考虑0哦！");
+            }
+            for (var i = 1; i <= a * b; i++) {
+                if (i % a == 0 && i % b == 0) {
+                    return i;
+                }
+            }
+        }
+
+        //采用最大公约数来求解
+        function lcm2(a, b) {
+            var gcd = gcd3(a, b);
+            return a * b / gcd;
+        }
+    </script>
+</body>
+
+</html>
