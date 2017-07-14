@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>javaScript闭包问题</title>
+</head>
+
+<body>
+
+    <script language="JavaScript" type="text/javascript">
+        function f1() {　　　　
+            var n = 999;　　　　
+            nAdd = function() {
+                n += 1
+            }　　　　
+            function f2() {　　　　　　
+                alert(n);　　　　
+            }　　　　
+            return f2;　　
+        }　　
+        var result = f1();　　
+        result(); // 999
+        　　
+        nAdd();　　
+        result(); // 1000
+    </script>
+
+    <script language="JavaScript" type="text/javascript">
+        var name = "The Window";　　
+        var object = {　　　　
+            name: "My Object",
+            getNameFunc: function() {　　　　　　
+                return function() {　　　　　　　　
+                    return this.name;　　　　　
+                };　　　　
+            }
+        };
+        alert(object.getNameFunc()()); //The Window
+    </script>
+
+    <script language="JavaScript" type="text/javascript">
+        function outerFun() {
+            var a = 0;
+
+            function innerFun() {
+                a++;
+                alert(a);
+            }
+            return innerFun; //注意这里
+        }
+        var obj = outerFun();
+        obj(); //结果为1
+        obj(); //结果为2
+        var obj2 = outerFun();
+        obj2(); //结果为1
+        obj2(); //结果为2
+    </script>
+
+    <script language="JavaScript" type="text/javascript">
+        function outerFun() {
+            var a = 0;
+            alert(a);
+        }
+        var a = 4;
+        outerFun();
+        alert(a); //结果是 0,4 .  因为在函数内部使用了var关键字 维护a的作用域在outFun()内部.
+    </script>
+
+    <script language="JavaScript" type="text/javascript">
+        function outerFun() {
+            a = 0; //没有var 
+            alert(a);
+        }
+        var a = 4;
+        outerFun();
+        alert(a); //结果为 0 0,当执行a=0时,因为没有使用var关键字,因此赋值操作会沿着作用域链到var a=4;  并改变其值.
+    </script>
+</body>
+
+</html>
