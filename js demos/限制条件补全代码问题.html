@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>限制条件补全代码问题</title>
+</head>
+
+<body>
+
+    <script type="text/javascript">
+        //1、a,b两个变量，不用第三个变量来切换这两个变量值。
+        //当a,b两个变量都为数字的时候，可以利用a，b自身来做交换
+        function transAb(a, b) {
+            // var a = 5;
+            // var b = 6;
+            a = a + b;
+            b = a - b;
+            a = a - b;
+            alert(a); //a=6
+            alert(b); //b=5
+        }
+        // transAb(5, 6);
+
+        //当a,b为任意变量时，采用以下通用方法
+        function transAb2(a, b) {
+            a = [a, b];
+            // console.log(a);
+            b = a[0];
+            a = a[1];
+            alert(a); //a="hi"
+            alert(b); //b="hello"
+        }
+        // transAb2("hello", "hi");
+    </script>
+
+
+    <script type="text/javascript">
+        //2、有一个数n=5，不用for循环，怎么返回[1,2,3,4,5]这样一个数组
+        //常规解法，利用循环
+        function retArray(n) { //压栈
+            var a = [];
+            for (var i = 1; i <= n; i++) {
+                a.push(i);
+            }
+            alert(a); //1，2，3，4，5
+        }
+        // retArray(5);
+
+        function retArray1(n) { //队列
+            var a = [];
+            for (var i = n; i >= 1; i--) {
+                a.unshift(i);
+            }
+            return a; //1，2，3，4，5
+        }
+        // alert(retArray1(5));
+
+        //利用递归
+        function retArray2(n) {
+            var arr = [];
+            return (function() {
+                arr.unshift(n);
+                n--;
+                if (n != 0) {
+                    arguments.callee(); //调用自身匿名函数的方法
+                }
+                return arr;
+            })();
+        }
+        // alert(retArray2(5));
+
+        //利用replace特性，用正则表达式进行多次匹配
+        function retArray3(n) {
+            var arr = [];
+            arr.length = n + 1;
+            var str = arr.join('a');
+            var arr2 = [];
+            str.replace(/a/g, function() {
+                arr2.unshift(n--);
+            })
+            return arr2;
+        }
+        // alert(retArray3(5));
+    </script>
+
+    <script type="text/javascript">
+        //3、一个数n,当n小于100就返回n，否则返回100
+
+        //基本判断
+        function show(n) {
+            if (n < 100) {
+                return n;
+            } else {
+                return 100;
+            }
+        }
+        // alert(show(133));
+
+        //三目运算符
+        function show1(n) {
+            return n < 100 ? n : 100;
+        }
+        // alert(show1(13));
+
+        // switch语句
+        function show2(n) {
+            switch (n < 100) {
+                case true:
+                    return n;
+                    break;
+                case false:
+                    return 100;
+                    break;
+            }
+        }
+        // alert(show2(113));
+
+        function show3(n) {
+            return Math.min(n, 100);
+        }
+        // alert(show3(11));
+
+        //利用数组
+        function show4(n) {
+            var arr = [n, 100];
+            arr.sort(function(n1, n2) {
+                return n1 - n2;
+            });
+            return arr[0];
+        }
+        // alert(show4(132));
+
+        //利用循环
+        function show5(n) {
+            //var m = '' + n; //把数字转化为字符串
+            var m = n.toString(); //把数字转化为字符串
+            for (i = 2; i < m.length && n > 0; i++) {
+                return 100;
+            }
+            return n;
+        }
+        // alert(show5(-132));
+
+        //利用json
+        function show6(n) {
+            var json = {
+                name: 'hello'
+            };
+            var m = n < 100 || json;
+            for (var attr in m) {
+                return 100;
+            }
+            return n;
+        }
+        // alert(show6(178));
+
+        //利用&& ||
+        function show7(n) {
+            var m = n >= 100 && 100;
+            return m || n;
+        }
+        alert(show7(89));
+    </script>
+</body>
+
+</html>
