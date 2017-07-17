@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8" />
+    <title>JS字符串问题</title>
+</head>
+
+<body>
+    <!-- 将一个字符串转化为驼峰命名的方法 -->
+    <script type="text/javascript">
+        //法一：数组法
+        // var str = "border-bottom-color";
+
+        function test(str) {
+            var arr = [];
+            arr = str.split("-");
+            for (var i = 0; i < arr.length; i++) {
+                arr[i] = arr[i].charAt(0).toUpperCase() + arr[i].substring(1);
+            }
+            return arr.join('');
+        }
+        // alert(test("border-bottom-color"));
+
+        //正则表达式
+        function test1(str) {
+            var reg = /-(\w)/g;
+            return str.replace(reg, function($0, $1) {
+                return $1.toUpperCase();
+            });
+        }
+        // alert(test1("border-bottom-color"));
+    </script>
+
+    <!-- 查找字符串中出现最多的字符和个数 -->
+    <script type="text/javascript">
+        //数组法，通过json存储
+        function findString(str) {
+            var obj = {};
+            var num = 0;
+            var value = '';
+            for (i = 0; i < str.length; i++) {
+                if (!obj[str[i]]) {
+                    obj[str[i]] = [];
+                }
+                obj[str[i]].push(str[i]);
+            }
+            for (var attr in obj) {
+                if (num < obj[attr].length) {
+                    num = obj[attr].length;
+                    value = obj[attr][0];
+                }
+            }
+            return ("出现最多的字符为：" + value + ",出现的次数为：" + num);
+        }
+        // alert(findString("sdjksfssscfssdd"));
+
+        //正则法,排序
+        function findString1(str) {
+            var arr = [];
+            arr = str.split('');
+            arr.sort();
+            str = arr.join('');
+            // console.log(str);
+
+            var reg = /(\w)\1+/g;
+            var num = 0;
+            var value = '';
+            str.replace(reg, function($0, $1) {
+                // console.log($0);//两个及以上的字符组
+                // console.log($1);//单个字符
+                if (num < $0.length) {
+                    num = $0.length;
+                    value = $1;
+                }
+            });
+            return ("出现最多的字符为：" + value + ",出现的次数为：" + num);
+        }
+        // alert(findString1("sdjksfssscfssdd"));
+    </script>
+
+    <!-- 给字符串加千分符 -->
+    <script type="text/javascript">
+        //数组法
+        function addQff(str) {
+            var iNum = str.length % 3; //有三种情况：0，1，2
+
+            var prev = '';
+            var arr = [];
+            var iNow = 0;
+            var temp = '';
+
+            if (iNum != 0) {
+                prev = str.substring(0, iNum);
+                arr.push(prev);
+            }
+            str = str.substring(iNum);
+            for (var i = 0; i < str.length; i++) {
+                console.log(str[i]);
+                iNow++;
+                temp = temp + str[i];
+
+                if (iNow == 3) {
+                    arr.push(temp);
+                    iNow = 0;
+                    temp = '';
+                }
+            }
+            return arr.join(',');
+        }
+        // alert(addQff("33562123761"));
+
+        //正则法
+        //(?=)前向声明
+        //(?!)反前向声明
+        function addQff1(str) {
+            var reg = /(?=(?!\b)(\d{3})+$)/g;
+            return str.replace(reg, ',');
+        }
+        alert(addQff1("562123761"));
+    </script>
+</body>
+
+</html>
