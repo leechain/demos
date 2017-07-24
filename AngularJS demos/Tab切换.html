@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Tab切换</title>
+    <link rel="stylesheet" type="text/css" href="bootstrap.min.css">
+    <style type="text/css">
+        * {
+            margin: 0;
+            padding: 0;
+        }
+        
+        .tabs {
+            margin: 50px;
+        }
+        
+        nav a.active {
+            background-color: #9BAF9B;
+        }
+        
+        .cont {
+            overflow: hidden;
+        }
+        
+        .cont ol {
+            line-height: 30px;
+        }
+    </style>
+</head>
+
+<body ng-app="Tabs">
+    <div class="tabs" ng-controller="TabController">
+        <nav>
+            <a href="#" ng-click="switch('local')" ng-class="{active:type=='local'}">国内新闻</a>
+            <a href="#" ng-click="switch('global')" ng-class="{active:type=='global'}">国际新闻</a>
+            <a href="#" ng-click="switch('sports')" ng-class="{active:type=='sports'}">体育新闻</a>
+            <a href="#" ng-click="switch('funny')" ng-class="{active:type=='funny'}">娱乐新闻</a>
+        </nav>
+        <div ng-switch on="type">
+            <section class="cont" ng-switch-when="local">
+                <ol>
+                    <li>八达岭野生动物园有人坐车顶游园 园方称立即制止</li>
+                    <li>犯人越狱逃跑17年 被捕前资产过亿公司即将上市</li>
+                    <li>台风蓝色预警发布 “桑卡”今日夜间或登陆海南</li>
+                    <li>两省级军区政治主官对调：王炳跃履新内蒙古军区</li>
+                    <li>女子为学英语结识"美国大兵" 汇160万元才知被骗</li>
+                </ol>
+            </section>
+            <section class="cont" ng-switch-when="global">
+                <ol>
+                    <li>特朗普发推谈特赦权引发猜测 美媒：将引发政治风暴</li>
+                    <li>韩国争议是否电视直播朴槿惠审判 在野党：有舆论审判危险</li>
+                    <li>土耳其总统访问沙特 为化解卡塔尔危机斡旋努力</li>
+                    <li>安徽一政协主席在家开赌场细节：15名官员前来送钱</li>
+                    <li>男子持剪刀扎5人驾车逃跑再撞9人 警方正全力抓捕</li>
+                </ol>
+            </section>
+            <section class="cont" ng-switch-when="sports">
+                <ol>
+                    <li>曝马利斯-斯贝茨接近与奥兰多魔术完成签约</li>
+                    <li>巴西女排克美国主场加冕 荷兰涉险锁定总决赛门票</li>
+                    <li>斯皮思三夺大满贯创多项纪录 有望最年轻全满贯</li>
+                    <li>保罗-乔治上月底曾接近加盟骑士队</li>
+                    <li>特维斯无力救主 中超京沪大战申花败北</li>
+                </ol>
+            </section>
+            <section class="cont" ng-switch-when="funny">
+                <ol>
+                    <li>比起罗子君，她们的前半生才是励志样本</li>
+                    <li>伊能静晒宝宝温馨照，却被质疑像是打广告</li>
+                    <li>青涩貌美！17年前马伊琍电影旧照曝光</li>
+                    <li>赵丽颖拼命到一年365天都在拍戏：怕错过黄金期</li>
+                    <li>彭于晏：我就是没才华 所以才用命拼</li>
+                </ol>
+            </section>
+        </div>
+    </div>
+
+    <script src="angular-1.4.6.min.js"></script>
+    <script>
+        var Tabs = angular.module('Tabs', []);
+        Tabs.controller('TabController', ['$scope', function($scope) {
+            $scope.type = "local";
+            $scope.switch = function(type) {
+                // alert(type);
+                $scope.type = type;
+            }
+        }]);
+    </script>
+</body>
+
+</html>
