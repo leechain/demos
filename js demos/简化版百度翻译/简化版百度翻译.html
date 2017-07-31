@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>简化版百度翻译</title>
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+</head>
+
+<body>
+    <!-- 作品原地址：https://segmentfault.com/a/1190000009978653 -->
+    <div id="main">
+        <div class="left">
+            <div class="title">
+                要翻译为：
+                <span class="lang">英文</span>
+                <ul class="ul1">
+                    <li data-lang="en">英语</li>
+                    <li data-lang="zh">中文</li>
+                    <li data-lang="jp">日语</li>
+                    <li data-lang="kor">韩语</li>
+                    <li data-lang="fra">法语</li>
+                    <li data-lang="ru">俄语</li>
+                    <li data-lang="de">德语</li>
+                </ul>
+            </div>
+            <textarea class="text" placeholder="要翻译的单词/句子" value=""></textarea>
+        </div>
+
+        <div class="right">
+            <div class="title">翻译结果：</div>
+            <div class="cont"></div>
+        </div>
+
+        <div class="bottom">
+            <button class="reset">清除</button>
+            <button class="trans">翻译</button>
+        </div>
+    </div>
+    <script src="js/MD5.js"></script>
+    <script src="js/script.js"></script>
+</body>
+
+</html>

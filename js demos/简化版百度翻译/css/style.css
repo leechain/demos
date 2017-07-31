@@ -1,0 +1,145 @@
+* {
+    margin: 0;
+    padding: 0;
+    font-family: "微软雅黑";
+}
+
+html,
+body {
+    height: 100%;
+}
+
+li {
+    list-style: none;
+}
+
+body {
+    overflow: hidden;
+}
+
+#main {
+    width: 1000px;
+    height: 80%;
+    margin: 5% auto;
+}
+
+#main .left {
+    float: left;
+    width: 350px;
+    height: 330px;
+    margin: 50px 0 0 50px;
+    background-color: #fff;
+    border: 1px solid #000;
+    box-sizing: border-box;
+    color: #fff;
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+}
+
+#main .right {
+    float: right;
+    width: 350px;
+    height: 330px;
+    margin: 50px 50px 0 0;
+    background-color: #fff;
+    border: 1px solid #000;
+    box-sizing: border-box;
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+}
+
+#main .title {
+    width: 100%;
+    height: 40px;
+    background-color: #333;
+    line-height: 40px;
+    text-indent: 20px;
+    position: relative;
+    color: #fff;
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+}
+
+#main .lang {
+    height: 40px;
+    line-height: 40px;
+    text-indent: 20px;
+    letter-spacing: 2px;
+    text-decoration: underline;
+    color: #58a;
+    cursor: pointer;
+}
+
+#main .lang:hover {
+    text-decoration: none;
+    color: #eee;
+}
+
+#main .text {
+    width: 100%;
+    height: 288px;
+    padding: 20px;
+    box-sizing: border-box;
+    resize: none;
+    outline: none;
+    border: none;
+}
+
+#main .right .cont {
+    width: 100%;
+    height: 295px;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+#main .bottom {
+    float: left;
+    width: 100%;
+    height: 40px;
+    margin-top: 60px;
+}
+
+#main .bottom button {
+    float: right;
+    width: 65px;
+    height: 35px;
+    line-height: 35px;
+    letter-spacing: 2px;
+    border: none;
+    margin-right: 50px;
+    border-radius: 3px;
+    outline: none;
+    cursor: pointer;
+    color: #eee;
+    background-color: #333;
+}
+
+#main ul {
+    width: 100%;
+    padding: 20px 15px 0 20px;
+    box-sizing: border-box;
+    position: absolute;
+    background: blue;
+    background-color: #fff;
+    border-bottom: 1px solid #333;
+    display: none;
+}
+
+#main ul li {
+    float: left;
+    text-indent: 0;
+    text-align: center;
+    padding: 0 10px;
+    margin: 0 10px;
+    margin-bottom: 20px;
+    border: 1px solid #000;
+    border-radius: 5px;
+    box-sizing: border-box;
+    color: #333;
+    cursor: pointer;
+}
+
+#main ul li:hover {
+    background-color: #333;
+    color: #fff;
+}
