@@ -9,7 +9,7 @@
         key = true,
         length = lis.length,
         lang = "en",
-        timer = null;
+        oldText = '';
 
     function langShow() {
         if (key == true) {
@@ -37,10 +37,10 @@
 
     function translate() {
         var value = 'http://api.fanyi.baidu.com/api/trans/vip/translate?';
-        var date = Date.now();
-        var str = '20170605000052254' + text.value + date + '63r1c42X7_buc4OrXm1g';
-        var md5 = MD5(str);
-        var data = 'q=' + text.value + '&from=auto&to=' + lang + '&appid=20170605000052254' + '&salt=' + date + '&sign=' + md5 + "&callback=fn";
+        var salt = Date.now(); //随机数加盐salt，主要是为了区分URL
+        var str = '20170605000052254' + text.value + salt + '63r1c42X7_buc4OrXm1g';
+        var md5 = MD5(str); //将str进行MD5加密
+        var data = 'q=' + text.value + '&from=auto&to=' + lang + '&appid=20170605000052254' + '&salt=' + salt + '&sign=' + md5 + "&callback=fn";
         var src = value + data;
         createScript(src);
     }
@@ -70,12 +70,11 @@
             }
         }
 
-        text.onkeydown = function() {
-            clearTimeout(timer);
-            timer = setInterval(function() {
-                if (text.value == "") {
-                    return;
-                }
+        text.onkeydown = setInterval(function() {
+            if (text.value == oldText) {
+                return;
+            } else {
+                oldText = text.value;
                 var script = document.querySelector('#script1');
                 if (script) {
                     script.parentNode.removeChild(script);
@@ -83,9 +82,10 @@
                 } else {
                     translate();
                 }
-            }, 500);
-            clearTimeout(timer);
-        }
+            }
+
+        }, 500);
+
     }
     init();
 })();
